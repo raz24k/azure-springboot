@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         GIT_REPO = 'https://github.com/raz24k/azure-springboot.git'
+        DOCKER_BUILD_DIR = 'C:\\Users\\raz24\\Downloads\\azure-cicd' // Docker build directory
     }
     stages {
         stage('Checkout') {
@@ -19,15 +20,20 @@ pipeline {
             }
         }
 
+        stage('Copy WAR to Docker Context') {
+            steps {
+                bat "copy target\\azure-cicd-3.4.5-SNAPSHOT.war ${DOCKER_BUILD_DIR}\\target\\"
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t azure-springboot .'
+                bat "docker build -t azure-springboot ${DOCKER_BUILD_DIR}"
             }
         }
 
         stage('Cleanup Docker Containers') {
             steps {
-                // Stop and remove all containers with the name 'azure-springboot'
                 bat '''
                     echo "Cleaning up Docker containers if any"
                     for /f "tokens=*" %%i in ('docker ps -a -q -f "name=azure-springboot"') do (
@@ -47,3 +53,4 @@ pipeline {
         }
     }
 }
+
