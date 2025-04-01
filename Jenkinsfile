@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven-3.9.9' // Use the configured Maven 3.9.9
+    }
     environment {
         GIT_REPO = 'https://github.com/raz24k/azure-springboot.git'
     }
