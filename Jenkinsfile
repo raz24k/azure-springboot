@@ -14,17 +14,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t azure-springboot .'
+                bat 'docker build -t azure-springboot .'
             }
         }
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 8081:8081 azure-springboot'
+                bat 'docker run -d -p 8081:8081 azure-springboot'
             }
         }
     }
