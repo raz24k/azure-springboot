@@ -29,10 +29,13 @@ pipeline {
             steps {
                 // Stop and remove all containers with the name 'azure-springboot'
                 bat '''
+                    echo "Cleaning up Docker containers if any"
                     for /f "tokens=*" %%i in ('docker ps -a -q -f "name=azure-springboot"') do (
+                        echo "Stopping and removing container %%i"
                         docker stop %%i
                         docker rm %%i
                     )
+                    echo "Docker cleanup complete"
                 '''
             }
         }
