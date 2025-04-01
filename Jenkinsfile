@@ -42,7 +42,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 8081:8080 --name azure-springboot azure-springboot'
+                bat 'docker run -d -p 8081:8082 --name azure-springboot azure-springboot'
             }
         }
     }

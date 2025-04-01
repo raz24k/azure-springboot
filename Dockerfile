@@ -7,7 +7,7 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 COPY target/azure-cicd-3.4.5-SNAPSHOT.war /usr/local/tomcat/webapps/azure-springboot.war
 
 # Expose the port Tomcat runs on
-EXPOSE 8080
+EXPOSE 8082
 
 # Start Tomcat
 CMD ["catalina.sh", "run"]
