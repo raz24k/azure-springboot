@@ -27,14 +27,19 @@ pipeline {
 
         stage('Cleanup Docker Containers') {
             steps {
-                bat 'docker ps -a -q -f "name=azure-springboot" | ForEach-Object { docker stop $_ }'
-                bat 'docker ps -a -q -f "name=azure-springboot" | ForEach-Object { docker rm $_ }'
+                // Stop and remove all containers with the name 'azure-springboot'
+                bat '''
+                    for /f "tokens=*" %%i in ('docker ps -a -q -f "name=azure-springboot"') do (
+                        docker stop %%i
+                        docker rm %%i
+                    )
+                '''
             }
         }
 
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 8081:8080 azure-springboot'
+                bat 'docker run -d -p 8081:8080 --name azure-springboot azure-springboot'
             }
         }
     }
