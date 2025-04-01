@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'maven:3.8.6-openjdk-11'
-        }
+        docker { image 'maven:3.8.6-eclipse-temurin-17' }
     }
     environment {
         GIT_REPO = 'https://github.com/raz24k/azure-springboot.git'
